@@ -61,14 +61,14 @@ export function FieldRenderer({ field, control, register, error, ctx, onPicked }
                       if (next) onPicked?.(next);
                     }}
                     className={cn(
-                      "group relative flex min-h-[64px] items-center gap-4 rounded-2xl border p-4 text-left transition duration-300 md:p-5",
+                      "group relative flex min-h-[64px] items-center gap-4 rounded-[20px] border p-4 text-left transition duration-300 ease-out md:p-5",
                       Icon && field.columns === 4 && "flex-col items-start justify-between gap-6 md:min-h-[150px]",
-                      selected ? "border-gold bg-gold/10 shadow-gold" : "border-milk/10 bg-ink/40 hover:border-gold/50 hover:bg-graphite/50",
-                      error && !selected && "border-rose-400/40",
+                      selected ? "border-gold bg-blush-soft ring-4 ring-gold/10" : "border-line bg-white shadow-card hover:-translate-y-0.5 hover:border-gold/40",
+                      error && !selected && "border-rose-300",
                     )}
                   >
                     {Icon && (
-                      <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition", selected ? "border-gold bg-gold text-ink" : "border-milk/15 text-gold group-hover:border-gold/60")}>
+                      <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition", selected ? "border-gold bg-gold text-white" : "border-transparent bg-blush-soft text-gold group-hover:bg-blush")}>
                         <Icon className="h-5 w-5" strokeWidth={1.6} />
                       </span>
                     )}
@@ -76,7 +76,7 @@ export function FieldRenderer({ field, control, register, error, ctx, onPicked }
                       <span className="block font-semibold leading-snug text-milk">{o.label}</span>
                       {o.description && <span className="mt-1 block text-xs leading-snug text-milk/50">{o.description}</span>}
                     </span>
-                    <span className={cn("absolute right-3 top-3 grid h-5 w-5 place-items-center rounded-full border transition", selected ? "border-gold bg-gold text-ink" : "border-milk/20 opacity-0 group-hover:opacity-100")}>
+                    <span className={cn("absolute right-3 top-3 grid h-5 w-5 place-items-center rounded-full border transition", selected ? "border-gold bg-gold text-white" : "border-milk/20 opacity-0 group-hover:opacity-100")}>
                       <Check className="h-3 w-3" strokeWidth={3} />
                     </span>
                   </button>
@@ -108,10 +108,10 @@ export function FieldRenderer({ field, control, register, error, ctx, onPicked }
                       onClick={() => f.onChange(checked ? value.filter((v) => v !== o.value) : [...value, o.value])}
                       className={cn(
                         "flex min-h-[56px] items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition",
-                        checked ? "border-gold bg-gold/10 text-milk" : "border-milk/10 bg-ink/40 text-milk/80 hover:border-gold/50",
+                        checked ? "border-gold bg-blush-soft font-semibold text-milk" : "border-line bg-white text-milk/80 shadow-card hover:border-gold/40",
                       )}
                     >
-                      <span className={cn("grid h-5 w-5 shrink-0 place-items-center rounded-md border transition", checked ? "border-gold bg-gold text-ink" : "border-milk/30")}>
+                      <span className={cn("grid h-5 w-5 shrink-0 place-items-center rounded-md border transition", checked ? "border-gold bg-gold text-white" : "border-milk/30")}>
                         {checked && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
                       </span>
                       {o.label}
@@ -138,7 +138,7 @@ export function FieldRenderer({ field, control, register, error, ctx, onPicked }
               onClick={() => f.onChange(!(f.value === true))}
               className="flex items-center gap-3 py-1 text-left text-sm text-milk/80 transition hover:text-milk"
             >
-              <span className={cn("grid h-6 w-6 shrink-0 place-items-center rounded-lg border transition", f.value === true ? "border-gold bg-gold text-ink" : "border-milk/30")}>
+              <span className={cn("grid h-6 w-6 shrink-0 place-items-center rounded-lg border transition", f.value === true ? "border-gold bg-gold text-white" : "border-milk/30")}>
                 {f.value === true && <Check className="h-4 w-4" strokeWidth={3} />}
               </span>
               {field.label}
@@ -177,7 +177,7 @@ export function FieldRenderer({ field, control, register, error, ctx, onPicked }
           max={field.type === "date" ? ctx.maxDate : undefined}
           aria-invalid={!!error}
           aria-describedby={describedBy}
-          className={cn("input", (field.type === "date" || field.type === "time") && "min-h-[58px] [color-scheme:dark]", error && "border-rose-400/60")}
+          className={cn("input", (field.type === "date" || field.type === "time") && "min-h-[58px] [color-scheme:light]", error && "border-rose-400/60")}
           {...register(field.id)}
         />
       );
@@ -197,7 +197,7 @@ export function FieldRenderer({ field, control, register, error, ctx, onPicked }
       {field.description && <p className="-mt-1 mb-3 text-xs text-milk/50">{field.description}</p>}
       {control_}
       {error && (
-        <p id={errorId} role="alert" className="mt-2 text-sm text-rose-300">
+        <p id={errorId} role="alert" className="mt-2 text-sm text-rose-600">
           {error}
         </p>
       )}

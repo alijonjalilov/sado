@@ -1,19 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { site } from "@/content/site";
 import { siteUrl } from "@/lib/utils";
 import "./globals.css";
 
-const serif = Cormorant_Garamond({
+// Один шрифт на весь сайт: Montserrat (кириллица, курсив для акцентных заголовков)
+const sans = Montserrat({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-serif",
-  display: "swap",
-});
-
-const sans = Manrope({
-  subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -38,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0B0C",
+  themeColor: "#F6F2EC",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -46,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="ru" className={sans.variable}>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

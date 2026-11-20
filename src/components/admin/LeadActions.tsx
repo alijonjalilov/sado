@@ -57,7 +57,7 @@ export function StatusControl({ leadId, status }: { leadId: string; status: Lead
           </button>
         ))}
       </div>
-      {error && <p className="mt-2 text-sm text-rose-300">{error}</p>}
+      {error && <p className="mt-2 text-sm text-rose-600">{error}</p>}
     </div>
   );
 }
@@ -81,14 +81,14 @@ export function DeleteLeadButton({ leadId }: { leadId: string }) {
 
   if (!confirm)
     return (
-      <button type="button" onClick={() => setConfirm(true)} className="btn-outline w-full border-rose-400/30 py-3 text-sm text-rose-300 hover:border-rose-400 hover:text-rose-200">
+      <button type="button" onClick={() => setConfirm(true)} className="btn-outline w-full border-rose-300 py-3 text-sm text-rose-600 hover:border-rose-400 hover:text-rose-700">
         <Trash2 className="h-4 w-4" /> Удалить заявку
       </button>
     );
 
   return (
-    <div className="rounded-xl border border-rose-400/40 bg-rose-500/10 p-4">
-      <p className="text-sm text-rose-100">Удалить заявку безвозвратно вместе с комментариями?</p>
+    <div className="rounded-xl border border-rose-300 bg-rose-50 p-4">
+      <p className="text-sm text-rose-800">Удалить заявку безвозвратно вместе с комментариями?</p>
       <div className="mt-3 flex gap-2">
         <button type="button" onClick={remove} disabled={loading} className="btn flex-1 bg-rose-500 py-2.5 text-sm text-white hover:bg-rose-400">
           {loading ? <LoaderCircle className="h-4 w-4 animate-spin" /> : "Да, удалить"}
@@ -145,7 +145,7 @@ export function Comments({ leadId, comments }: { leadId: string; comments: Comme
           placeholder="Внутренний комментарий — клиент его не видит"
           className="input resize-y text-sm"
         />
-        {error && <p className="text-sm text-rose-300">{error}</p>}
+        {error && <p className="text-sm text-rose-600">{error}</p>}
         <button type="submit" disabled={loading || !text.trim()} className="btn-gold py-2.5 text-sm">
           {loading && <LoaderCircle className="h-4 w-4 animate-spin" />} Добавить комментарий
         </button>
@@ -158,7 +158,7 @@ export function Comments({ leadId, comments }: { leadId: string; comments: Comme
               <span>
                 {c.author ?? "Администратор"} · {c.createdAt}
               </span>
-              <button type="button" onClick={() => remove(c.id)} className="opacity-60 transition hover:text-rose-300 group-hover:opacity-100" aria-label="Удалить комментарий">
+              <button type="button" onClick={() => remove(c.id)} className="opacity-60 transition hover:text-rose-600 group-hover:opacity-100" aria-label="Удалить комментарий">
                 <Trash2 className="h-3.5 w-3.5" />
               </button>
             </div>

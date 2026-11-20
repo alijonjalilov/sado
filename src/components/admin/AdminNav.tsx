@@ -30,12 +30,12 @@ export function AdminNav({ newCount, pendingReviews }: { newCount: number; pendi
             href={it.href}
             className={cn(
               "flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-sm transition",
-              active ? "bg-gold/10 text-gold-light" : "text-milk/60 hover:bg-milk/5 hover:text-milk",
+              active ? "bg-gold/10 text-gold" : "text-milk/60 hover:bg-milk/5 hover:text-milk",
             )}
           >
             <it.icon className="h-4 w-4" />
             {it.label}
-            {badge > 0 && <span className="ml-auto rounded-full bg-gold px-2 py-0.5 text-[11px] font-bold text-ink">{badge}</span>}
+            {badge > 0 && <span className="ml-auto rounded-full bg-gold px-2 py-0.5 text-[11px] font-bold text-white">{badge}</span>}
           </Link>
         );
       })}
@@ -43,7 +43,7 @@ export function AdminNav({ newCount, pendingReviews }: { newCount: number; pendi
       <Link href="/" target="_blank" className="flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-sm text-milk/50 transition hover:text-milk">
         <ExternalLink className="h-4 w-4" /> Открыть сайт
       </Link>
-      <button type="button" onClick={logout} className="flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm text-milk/50 transition hover:text-rose-300">
+      <button type="button" onClick={logout} className="flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm text-milk/50 transition hover:text-rose-600">
         <LogOut className="h-4 w-4" /> Выйти
       </button>
     </nav>

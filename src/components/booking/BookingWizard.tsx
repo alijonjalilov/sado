@@ -196,18 +196,19 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
   return (
     <div className="relative min-h-dvh bg-ink lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
       {/* ── Левая панель (десктоп) ── */}
-      <aside className="relative isolate hidden overflow-hidden lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:justify-between lg:p-12">
-        <Image src={site.hero.image} alt="" fill priority sizes="40vw" className="-z-10 object-cover opacity-70" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-ink/80 via-ink/50 to-ink" />
-        <Logo />
+      <aside className="grain relative isolate hidden overflow-hidden bg-deep-gradient text-white lg:sticky lg:top-3 lg:m-3 lg:flex lg:h-[calc(100dvh-1.5rem)] lg:flex-col lg:justify-between lg:rounded-panel lg:p-10 xl:p-12">
+        <Image src={site.hero.image} alt="" fill priority sizes="40vw" className="-z-10 object-cover opacity-30 mix-blend-luminosity" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-deep/40 via-deep/60 to-deep" />
+        <div className="absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-gold/40 blur-[100px]" />
+        <Logo light />
         <div>
-          <span className="eyebrow">Конструктор заявки</span>
-          <h1 className="mt-6 font-serif text-6xl font-medium leading-[1.02] xl:text-7xl">
-            Давайте создадим <em className="text-gold-gradient">ваше мероприятие</em>
+          <p className="text-[11px] font-extrabold uppercase tracking-luxe text-champagne-light">Конструктор заявки</p>
+          <h1 className="mt-5 text-5xl font-black uppercase italic leading-[0.95] tracking-tight text-white xl:text-6xl">
+            Давайте создадим <span className="text-champagne-gradient">ваше мероприятие</span>
           </h1>
-          <p className="mt-6 max-w-md text-lg text-milk/60">Ответьте на несколько вопросов, чтобы мы могли предложить вам подходящий формат проведения.</p>
+          <p className="mt-6 max-w-md text-base text-white/65">Ответьте на несколько вопросов, чтобы мы могли предложить вам подходящий формат проведения.</p>
         </div>
-        <ol className="space-y-1.5" aria-label="Шаги">
+        <ol className="space-y-1" aria-label="Шаги">
           {steps.map((s, i) => (
             <li key={s.id}>
               <button
@@ -215,11 +216,16 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
                 onClick={() => goTo(i)}
                 disabled={i > maxReached || status === "success"}
                 className={cn(
-                  "flex w-full items-center gap-3 rounded-lg py-1 text-left text-sm transition disabled:cursor-default",
-                  i === idx ? "text-gold-light" : i <= maxReached ? "text-milk/70 hover:text-milk" : "text-milk/25",
+                  "flex w-full items-center gap-3 rounded-full py-1 text-left text-sm font-semibold transition disabled:cursor-default",
+                  i === idx ? "text-white" : i <= maxReached ? "text-white/65 hover:text-white" : "text-white/30",
                 )}
               >
-                <span className={cn("grid h-6 w-6 shrink-0 place-items-center rounded-full border text-[11px] tabular-nums", i === idx ? "border-gold bg-gold text-ink" : i < idx || i <= maxReached ? "border-gold/50" : "border-milk/15")}>
+                <span
+                  className={cn(
+                    "grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px] font-bold tabular-nums transition",
+                    i === idx ? "bg-champagne text-deep" : i <= maxReached ? "bg-white/15 text-white" : "bg-white/5 text-white/40",
+                  )}
+                >
                   {i < idx ? <Check className="h-3 w-3" /> : i + 1}
                 </span>
                 <span className="truncate">{s.title}</span>
@@ -231,7 +237,7 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
 
       {/* ── Форма ── */}
       <main className="flex min-h-dvh flex-col">
-        <div ref={topRef} className="sticky top-0 z-20 border-b border-milk/5 bg-ink/85 backdrop-blur-xl">
+        <div ref={topRef} className="sticky top-0 z-20 border-b border-line bg-ink/85 backdrop-blur-xl">
           <div className="flex items-center justify-between px-5 py-4 md:px-10">
             <div className="lg:hidden">
               <Logo />
@@ -243,12 +249,12 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
                   <RotateCcw className="h-3.5 w-3.5" /> Заново
                 </button>
               )}
-              <Link href="/" className="grid h-10 w-10 place-items-center rounded-full border border-milk/15 text-milk/70 transition hover:border-gold hover:text-milk" aria-label="Закрыть и вернуться на сайт">
+              <Link href="/" className="grid h-10 w-10 place-items-center rounded-full bg-white text-milk/70 shadow-card transition hover:text-gold" aria-label="Закрыть и вернуться на сайт">
                 <X className="h-4 w-4" />
               </Link>
             </div>
           </div>
-          <div className="h-[3px] w-full bg-milk/5">
+          <div className="h-1 w-full bg-line">
             <motion.div className="h-full bg-gold-gradient" initial={false} animate={{ width: status === "success" ? "100%" : `${progress}%` }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} />
           </div>
         </div>
@@ -270,8 +276,8 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
               {idx === 0 && (
                 <div className="mb-10 lg:hidden">
                   <span className="eyebrow">Конструктор заявки</span>
-                  <p className="mt-4 font-serif text-4xl leading-tight">
-                    Давайте создадим <em className="text-gold-gradient">ваше мероприятие</em>
+                  <p className="mt-4 text-[2.1rem] font-black uppercase italic leading-[0.98] tracking-tight text-milk">
+                    Давайте создадим <span className="text-gold-gradient">ваше мероприятие</span>
                   </p>
                   <p className="mt-3 text-milk/60">Ответьте на несколько вопросов, чтобы мы могли предложить вам подходящий формат проведения.</p>
                 </div>
@@ -280,7 +286,7 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
               {restored && idx > 0 && (
                 <div className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gold/25 bg-gold/5 px-5 py-3 text-sm text-milk/80">
                   Мы сохранили ваши ответы с прошлого визита.
-                  <button type="button" onClick={restart} className="font-semibold text-gold hover:text-gold-light">
+                  <button type="button" onClick={restart} className="font-semibold text-gold hover:text-gold">
                     Начать заново
                   </button>
                 </div>
@@ -299,7 +305,7 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
                   <p className="text-xs font-semibold uppercase tracking-luxe text-gold lg:hidden">
                     Шаг {idx + 1} из {steps.length}
                   </p>
-                  <h2 id="step-title" className="mt-3 text-3xl font-medium leading-tight text-milk sm:text-4xl md:text-5xl lg:mt-0">
+                  <h2 id="step-title" className="mt-3 text-[1.9rem] font-extrabold leading-tight text-milk sm:text-4xl md:text-[2.75rem] lg:mt-0">
                     {step.title}
                   </h2>
                   {step.subtitle && <p className="mt-4 text-milk/60 md:text-lg">{step.subtitle}</p>}
@@ -321,7 +327,7 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
                   </div>
 
                   {isLast && summary.length > 0 && (
-                    <div className="mt-12 rounded-2xl border border-milk/10">
+                    <div className="mt-12 rounded-card border border-line bg-white shadow-card">
                       <button type="button" onClick={() => setSummaryOpen((v) => !v)} className="flex w-full items-center justify-between px-5 py-4 text-left" aria-expanded={summaryOpen}>
                         <span className="font-semibold text-milk">Проверьте ваши ответы</span>
                         <ChevronDown className={cn("h-5 w-5 text-gold transition", summaryOpen && "rotate-180")} />
@@ -333,7 +339,7 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
                               {summary.map((s) => (
                                 <div key={s.stepId}>
                                   <div className="flex items-start justify-between gap-4">
-                                    <p className="text-sm font-semibold text-gold-light">{s.title}</p>
+                                    <p className="text-sm font-semibold text-gold">{s.title}</p>
                                     <button type="button" onClick={() => goTo(steps.findIndex((x) => x.id === s.stepId))} className="inline-flex shrink-0 items-center gap-1 text-xs text-milk/50 hover:text-gold">
                                       <PencilLine className="h-3.5 w-3.5" /> Изменить
                                     </button>
@@ -358,7 +364,7 @@ export function BookingWizard({ initialType, serverToday }: { initialType?: Even
               </AnimatePresence>
 
               {submitError && (
-                <p role="alert" className="mt-8 rounded-2xl border border-rose-400/30 bg-rose-500/10 px-5 py-4 text-sm text-rose-200">
+                <p role="alert" className="mt-8 rounded-2xl border border-rose-300 bg-rose-50 px-5 py-4 text-sm text-rose-700">
                   {submitError}
                 </p>
               )}
@@ -405,11 +411,11 @@ function SuccessScreen() {
         initial={{ scale: 0, rotate: -30 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.15 }}
-        className="grid h-24 w-24 place-items-center rounded-full bg-gold-gradient text-ink shadow-gold"
+        className="grid h-24 w-24 place-items-center rounded-full bg-gold-gradient text-white shadow-gold"
       >
         <Check className="h-11 w-11" strokeWidth={2.5} />
       </motion.span>
-      <h2 className="mt-10 text-5xl font-medium md:text-6xl">Спасибо за доверие!</h2>
+      <h2 className="mt-10 text-4xl font-black uppercase italic leading-[0.95] tracking-tight md:text-6xl">Спасибо за доверие!</h2>
       <p className="mt-6 text-lg leading-relaxed text-milk/70">
         Ваша заявка успешно отправлена. Мы свяжемся с вами в ближайшее время, чтобы обсудить детали вашего мероприятия.
       </p>

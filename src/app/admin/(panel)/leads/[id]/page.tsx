@@ -63,12 +63,12 @@ export default async function LeadDetailPage({ params }: Props) {
             ))}
           </section>
 
-          <section className="rounded-2xl border border-milk/10 bg-graphite/30 p-6">
+          <section className="rounded-2xl border border-milk/10 bg-white shadow-card p-6">
             <h2 className="text-2xl">Ответы клиента</h2>
             <div className="mt-6 space-y-7">
               {summary.map((s) => (
                 <div key={s.stepId}>
-                  <p className="text-sm font-semibold text-gold-light">{s.title}</p>
+                  <p className="text-sm font-semibold text-gold">{s.title}</p>
                   <dl className="mt-3 divide-y divide-milk/5 rounded-xl border border-milk/5">
                     {s.items.map((it) => (
                       <div key={it.fieldId} className="grid gap-1 px-4 py-3 text-sm sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:gap-4">
@@ -110,14 +110,14 @@ export default async function LeadDetailPage({ params }: Props) {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-milk/10 bg-graphite/30 p-6">
+          <section className="rounded-2xl border border-milk/10 bg-white shadow-card p-6">
             <h2 className="text-xl">Статус заявки</h2>
             <div className="mt-4">
               <StatusControl leadId={lead.id} status={lead.status} />
             </div>
           </section>
 
-          <section className="rounded-2xl border border-milk/10 bg-graphite/30 p-6">
+          <section className="rounded-2xl border border-milk/10 bg-white shadow-card p-6">
             <h2 className="text-xl">Внутренние комментарии</h2>
             <div className="mt-4">
               <Comments

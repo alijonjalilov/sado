@@ -39,9 +39,9 @@ export default async function DashboardPage() {
 
       <section className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
         {stats.map((s) => (
-          <Link key={s.label} href={s.href} className={`group rounded-2xl border p-5 transition hover:border-gold/50 ${s.accent ? "border-gold/40 bg-gold/5" : "border-milk/10 bg-graphite/30"}`}>
+          <Link key={s.label} href={s.href} className={`group rounded-2xl border p-5 transition hover:border-gold/50 ${s.accent ? "border-gold/40 bg-gold/5" : "border-milk/10 bg-white shadow-card"}`}>
             <s.icon className={`h-5 w-5 ${s.accent ? "text-gold" : "text-milk/40"}`} />
-            <p className="mt-6 font-serif text-5xl text-milk">{s.value}</p>
+            <p className="mt-6 font-black italic text-5xl text-milk">{s.value}</p>
             <p className="mt-1 text-sm text-milk/50">{s.label}</p>
           </Link>
         ))}
@@ -51,7 +51,7 @@ export default async function DashboardPage() {
         <section>
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Новые заявки</h2>
-            <Link href="/admin/leads?status=NEW" className="inline-flex items-center gap-1 text-sm text-gold hover:text-gold-light">
+            <Link href="/admin/leads?status=NEW" className="inline-flex items-center gap-1 text-sm text-gold hover:text-gold">
               Все <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -62,7 +62,7 @@ export default async function DashboardPage() {
         <section>
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Ближайшие мероприятия</h2>
-            <Link href="/admin/leads?status=CONFIRMED&upcoming=1" className="inline-flex items-center gap-1 text-sm text-gold hover:text-gold-light">
+            <Link href="/admin/leads?status=CONFIRMED&upcoming=1" className="inline-flex items-center gap-1 text-sm text-gold hover:text-gold">
               Все <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -72,13 +72,13 @@ export default async function DashboardPage() {
         </section>
       </div>
 
-      <section className="rounded-2xl border border-milk/10 bg-graphite/30 p-6">
+      <section className="rounded-2xl border border-milk/10 bg-white shadow-card p-6">
         <h2 className="text-2xl">Заявки по типам мероприятий</h2>
         <div className="mt-6 space-y-3">
           {EVENT_TYPE_ORDER.map((t) => {
             const c = typeCounts.get(t) ?? 0;
             return (
-              <Link key={t} href={`/admin/leads?type=${t}`} className="grid grid-cols-[120px_1fr_40px] items-center gap-4 text-sm hover:text-gold-light">
+              <Link key={t} href={`/admin/leads?type=${t}`} className="grid grid-cols-[120px_1fr_40px] items-center gap-4 text-sm hover:text-gold">
                 <span className="text-milk/70">{EVENT_TYPE_LABELS[t]}</span>
                 <span className="h-2 overflow-hidden rounded-full bg-milk/5">
                   <span className="block h-full rounded-full bg-gold-gradient" style={{ width: `${(c / maxType) * 100}%` }} />

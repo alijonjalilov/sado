@@ -48,7 +48,7 @@ export function Lightbox({
     <AnimatePresence>
       {open && img && (
         <motion.div
-          className="fixed inset-0 z-[90] flex flex-col bg-ink/95 backdrop-blur-xl"
+          className="fixed inset-0 z-[90] flex flex-col bg-[#160b11]/95 text-white backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -57,10 +57,10 @@ export function Lightbox({
           aria-label="Просмотр фотографии"
         >
           <div className="flex items-center justify-between px-5 py-4 md:px-8">
-            <span className="text-sm tabular-nums text-milk/60">
+            <span className="rounded-full bg-white/10 px-3 py-1 text-sm font-bold tabular-nums">
               {(index ?? 0) + 1} / {images.length}
             </span>
-            <button onClick={onClose} className="grid h-11 w-11 place-items-center rounded-full border border-milk/20 transition hover:border-gold" aria-label="Закрыть">
+            <button onClick={onClose} className="grid h-11 w-11 place-items-center rounded-full bg-white/10 transition hover:bg-white hover:text-gold" aria-label="Закрыть">
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -85,15 +85,15 @@ export function Lightbox({
               </motion.div>
             </AnimatePresence>
 
-            <button onClick={prev} className="absolute left-3 top-1/2 hidden h-14 w-14 -translate-y-1/2 place-items-center rounded-full border border-milk/15 bg-ink/50 transition hover:border-gold md:grid" aria-label="Предыдущее фото">
+            <button onClick={prev} className="absolute left-3 top-1/2 hidden h-14 w-14 -translate-y-1/2 place-items-center rounded-full bg-white/10 transition hover:bg-white hover:text-gold md:grid" aria-label="Предыдущее фото">
               <ChevronLeft className="h-6 w-6" />
             </button>
-            <button onClick={next} className="absolute right-3 top-1/2 hidden h-14 w-14 -translate-y-1/2 place-items-center rounded-full border border-milk/15 bg-ink/50 transition hover:border-gold md:grid" aria-label="Следующее фото">
+            <button onClick={next} className="absolute right-3 top-1/2 hidden h-14 w-14 -translate-y-1/2 place-items-center rounded-full bg-white/10 transition hover:bg-white hover:text-gold md:grid" aria-label="Следующее фото">
               <ChevronRight className="h-6 w-6" />
             </button>
           </div>
 
-          <p className="px-5 py-5 text-center text-sm text-milk/60">{img.alt}</p>
+          <p className="px-5 py-5 text-center text-sm text-white/60">{img.alt}</p>
         </motion.div>
       )}
     </AnimatePresence>

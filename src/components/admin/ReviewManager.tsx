@@ -18,9 +18,9 @@ export type AdminReview = {
 };
 
 const STATUS_LABEL: Record<Status, { label: string; tone: string }> = {
-  PENDING: { label: "На модерации", tone: "bg-gold/15 text-gold-light ring-gold/40" },
-  PUBLISHED: { label: "Опубликован", tone: "bg-emerald-500/10 text-emerald-300 ring-emerald-400/30" },
-  HIDDEN: { label: "Скрыт", tone: "bg-milk/10 text-milk/60 ring-milk/20" },
+  PENDING: { label: "На модерации", tone: "bg-gold-pale text-gold ring-gold/30" },
+  PUBLISHED: { label: "Опубликован", tone: "bg-emerald-50 text-emerald-700 ring-emerald-600/20" },
+  HIDDEN: { label: "Скрыт", tone: "bg-milk/5 text-milk/60 ring-milk/15" },
 };
 
 async function api(url: string, method: string, body?: unknown) {
@@ -53,16 +53,16 @@ export function ReviewManager({ reviews }: { reviews: AdminReview[] }) {
       <button type="button" onClick={() => setEditing("new")} className="btn-gold py-3 text-sm">
         <Plus className="h-4 w-4" /> Добавить отзыв
       </button>
-      {error && <p className="text-sm text-rose-300">{error}</p>}
+      {error && <p className="text-sm text-rose-600">{error}</p>}
 
       {editing && <ReviewForm key={editing === "new" ? "new" : editing.id} review={editing === "new" ? null : editing} onClose={() => setEditing(null)} onSaved={() => { setEditing(null); router.refresh(); }} />}
 
       <div className="grid gap-4 lg:grid-cols-2">
         {reviews.map((r) => (
-          <article key={r.id} className={cn("rounded-2xl border bg-graphite/30 p-5", r.status === "PENDING" ? "border-gold/30" : "border-milk/10")}>
+          <article key={r.id} className={cn("rounded-2xl border bg-white shadow-card p-5", r.status === "PENDING" ? "border-gold/30" : "border-milk/10")}>
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="font-serif text-2xl">{r.authorName}</p>
+                <p className="font-extrabold text-2xl">{r.authorName}</p>
                 <p className="text-sm text-milk/45">
                   {r.eventLabel ?? "Без указания мероприятия"} · {r.createdAt}
                 </p>
@@ -94,7 +94,7 @@ export function ReviewManager({ reviews }: { reviews: AdminReview[] }) {
                 onClick={() => {
                   if (window.confirm(`Удалить отзыв «${r.authorName}»?`)) void run(r.id, () => api(`/api/admin/reviews/${r.id}`, "DELETE"));
                 }}
-                className="btn-outline ml-auto border-rose-400/30 px-4 py-2 text-xs text-rose-300 hover:border-rose-400"
+                className="btn-outline ml-auto border-rose-300 px-4 py-2 text-xs text-rose-600 hover:border-rose-400"
               >
                 {busy === r.id ? <LoaderCircle className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />} Удалить
               </button>
@@ -139,7 +139,7 @@ function ReviewForm({ review, onClose, onSaved }: { review: AdminReview | null; 
       <button type="button" onClick={onClose} className="absolute right-4 top-4 text-milk/40 hover:text-milk" aria-label="Закрыть">
         <X className="h-5 w-5" />
       </button>
-      <p className="font-serif text-2xl">{review ? "Редактировать отзыв" : "Новый отзыв"}</p>
+      <p className="font-extrabold text-2xl">{review ? "Редактировать отзыв" : "Новый отзыв"}</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <input name="authorName" required defaultValue={review?.authorName} placeholder="Имя автора" className="input py-3 text-sm" />
         <input name="eventLabel" defaultValue={review?.eventLabel ?? ""} placeholder="Мероприятие (например: свадьба, 2026)" className="input py-3 text-sm" />
@@ -160,7 +160,7 @@ function ReviewForm({ review, onClose, onSaved }: { review: AdminReview | null; 
           <option value="HIDDEN">Скрыт</option>
         </select>
       </div>
-      {error && <p className="text-sm text-rose-300">{error}</p>}
+      {error && <p className="text-sm text-rose-600">{error}</p>}
       <button type="submit" disabled={loading} className="btn-gold py-3 text-sm">
         {loading && <LoaderCircle className="h-4 w-4 animate-spin" />} Сохранить
       </button>

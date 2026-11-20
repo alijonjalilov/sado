@@ -13,7 +13,7 @@ export function FloatingContact() {
   const actions = [
     { label: "WhatsApp", href: whatsappLink("Здравствуйте! Хочу узнать о свободных датах."), icon: <WhatsAppIcon className="h-5 w-5" />, color: "bg-[#25D366] text-white" },
     { label: "Telegram", href: telegramLink(), icon: <TelegramIcon className="h-5 w-5" />, color: "bg-[#2AABEE] text-white" },
-    { label: "Позвонить", href: phoneLink(), icon: <Phone className="h-5 w-5" />, color: "bg-milk text-ink" },
+    { label: "Позвонить", href: phoneLink(), icon: <Phone className="h-5 w-5" />, color: "bg-white text-gold" },
   ];
 
   return (
@@ -32,8 +32,8 @@ export function FloatingContact() {
                 exit={{ opacity: 0, y: 10, scale: 0.9 }}
                 className="flex items-center gap-3"
               >
-                <span className="rounded-full bg-ink/90 px-3 py-1.5 text-xs text-milk shadow-card backdrop-blur">{a.label}</span>
-                <span className={`grid h-12 w-12 place-items-center rounded-full shadow-card ${a.color}`}>{a.icon}</span>
+                <span className="rounded-full bg-white px-3 py-1.5 text-xs font-bold text-milk shadow-card">{a.label}</span>
+                <span className={`grid h-12 w-12 place-items-center rounded-full shadow-float ${a.color}`}>{a.icon}</span>
               </motion.a>
             ))}
         </AnimatePresence>
@@ -42,14 +42,14 @@ export function FloatingContact() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Закрыть быстрые контакты" : "Быстро связаться"}
           aria-expanded={open}
-          className="grid h-14 w-14 place-items-center rounded-full bg-gold-gradient text-ink shadow-gold transition hover:scale-105"
+          className="grid h-14 w-14 place-items-center rounded-full bg-gold text-white shadow-gold transition duration-300 ease-spring hover:scale-105"
         >
           {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
         </button>
       </div>
 
-      <div className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-milk/10 bg-ink/90 px-4 pt-3 backdrop-blur-xl md:hidden">
-        <Link href="/booking" className="btn-gold w-full py-3.5">
+      <div className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/90 px-4 pt-3 backdrop-blur-xl md:hidden">
+        <Link href="/booking" className="btn-gold h-12 w-full">
           Забронировать дату
         </Link>
       </div>

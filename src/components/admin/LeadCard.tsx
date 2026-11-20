@@ -29,14 +29,14 @@ export function LeadCard({ lead }: { lead: LeadCardData }) {
     <Link
       href={`/admin/leads/${lead.id}`}
       className={cn(
-        "group block rounded-2xl border bg-graphite/30 p-5 transition hover:-translate-y-0.5 hover:border-gold/50 hover:bg-graphite/50",
+        "group block rounded-2xl border bg-white shadow-card p-5 transition hover:-translate-y-0.5 hover:border-gold/50 hover:shadow-float",
         lead.status === "NEW" ? "border-gold/30" : "border-milk/10",
       )}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.2em] text-gold">{EVENT_TYPE_LABELS[lead.eventType]}</p>
-          <p className="mt-1.5 truncate font-serif text-2xl text-milk">{lead.clientName}</p>
+          <p className="mt-1.5 truncate font-extrabold text-2xl text-milk">{lead.clientName}</p>
         </div>
         <StatusBadge status={lead.status} />
       </div>

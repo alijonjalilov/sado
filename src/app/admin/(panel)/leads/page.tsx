@@ -69,14 +69,14 @@ export default async function LeadsPage({ searchParams }: Props) {
 
       {/* Быстрые фильтры по статусу */}
       <div className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 md:mx-0 md:flex-wrap md:px-0">
-        <Link href="/admin/leads" className={`shrink-0 rounded-full border px-4 py-2 text-sm transition ${!sp.status ? "border-gold bg-gold/10 text-gold-light" : "border-milk/10 text-milk/60 hover:text-milk"}`}>
+        <Link href="/admin/leads" className={`shrink-0 rounded-full border px-4 py-2 text-sm transition ${!sp.status ? "border-gold bg-gold/10 text-gold" : "border-milk/10 text-milk/60 hover:text-milk"}`}>
           Все
         </Link>
         {STATUS_ORDER.map((s) => (
           <Link
             key={s}
             href={`/admin/leads?status=${s}`}
-            className={`shrink-0 rounded-full border px-4 py-2 text-sm transition ${sp.status === s ? "border-gold bg-gold/10 text-gold-light" : "border-milk/10 text-milk/60 hover:text-milk"}`}
+            className={`shrink-0 rounded-full border px-4 py-2 text-sm transition ${sp.status === s ? "border-gold bg-gold/10 text-gold" : "border-milk/10 text-milk/60 hover:text-milk"}`}
           >
             {STATUS_META[s].label}
           </Link>
@@ -84,7 +84,7 @@ export default async function LeadsPage({ searchParams }: Props) {
       </div>
 
       {/* Расширенные фильтры (GET-форма — работает без JavaScript) */}
-      <form method="get" className="grid gap-3 rounded-2xl border border-milk/10 bg-graphite/30 p-4 sm:grid-cols-2 lg:grid-cols-6">
+      <form method="get" className="grid gap-3 rounded-2xl border border-milk/10 bg-white shadow-card p-4 sm:grid-cols-2 lg:grid-cols-6">
         <label className="relative lg:col-span-2">
           <span className="sr-only">Поиск</span>
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-milk/30" />
@@ -108,11 +108,11 @@ export default async function LeadsPage({ searchParams }: Props) {
         </select>
         <label className="flex items-center gap-2 text-xs text-milk/50">
           с
-          <input type="date" name="from" defaultValue={sp.from} className="input py-3 text-sm [color-scheme:dark]" aria-label="Дата мероприятия с" />
+          <input type="date" name="from" defaultValue={sp.from} className="input py-3 text-sm [color-scheme:light]" aria-label="Дата мероприятия с" />
         </label>
         <label className="flex items-center gap-2 text-xs text-milk/50">
           по
-          <input type="date" name="to" defaultValue={sp.to} className="input py-3 text-sm [color-scheme:dark]" aria-label="Дата мероприятия по" />
+          <input type="date" name="to" defaultValue={sp.to} className="input py-3 text-sm [color-scheme:light]" aria-label="Дата мероприятия по" />
         </label>
         <select name="sort" defaultValue={sp.sort ?? ""} className="input py-3 text-sm lg:col-span-2" aria-label="Сортировка">
           <option value="">Сначала новые заявки</option>

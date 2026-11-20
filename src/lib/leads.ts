@@ -2,12 +2,12 @@ import type { EventType, LeadStatus } from "@prisma/client";
 import type { EventTypeId } from "./questionnaire/types";
 
 export const STATUS_META: Record<LeadStatus, { label: string; tone: string }> = {
-  NEW: { label: "Новая", tone: "bg-gold/15 text-gold-light ring-gold/40" },
-  IN_PROGRESS: { label: "В обработке", tone: "bg-sky-500/10 text-sky-300 ring-sky-400/30" },
-  AWAITING_REPLY: { label: "Ожидает ответа", tone: "bg-amber-500/10 text-amber-300 ring-amber-400/30" },
-  CONFIRMED: { label: "Подтверждена", tone: "bg-emerald-500/10 text-emerald-300 ring-emerald-400/30" },
-  COMPLETED: { label: "Завершена", tone: "bg-milk/10 text-milk/80 ring-milk/20" },
-  CANCELLED: { label: "Отменена", tone: "bg-rose-500/10 text-rose-300 ring-rose-400/30" },
+  NEW: { label: "Новая", tone: "bg-gold-pale text-gold ring-gold/30" },
+  IN_PROGRESS: { label: "В обработке", tone: "bg-sky-50 text-sky-700 ring-sky-600/20" },
+  AWAITING_REPLY: { label: "Ожидает ответа", tone: "bg-amber-50 text-amber-700 ring-amber-600/20" },
+  CONFIRMED: { label: "Подтверждена", tone: "bg-emerald-50 text-emerald-700 ring-emerald-600/20" },
+  COMPLETED: { label: "Завершена", tone: "bg-milk/5 text-milk/70 ring-milk/15" },
+  CANCELLED: { label: "Отменена", tone: "bg-rose-50 text-rose-700 ring-rose-600/20" },
 };
 
 export const STATUS_ORDER: LeadStatus[] = ["NEW", "IN_PROGRESS", "AWAITING_REPLY", "CONFIRMED", "COMPLETED", "CANCELLED"];
