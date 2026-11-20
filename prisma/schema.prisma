@@ -1,0 +1,139 @@
+// VEDUSHIY — схема базы данных
+// Архитектура заложена под несколько ведущих (Host), личные кабинеты (AdminUser.hostId)
+// и расширяемые анкеты (Lead.answers хранит ответы в JSON, Lead.summary — читаемый снимок).
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LeadStatus {
+  NEW
+  IN_PROGRESS
+  AWAITING_REPLY
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum EventType {
+  WEDDING
+  BIRTHDAY
+  ANNIVERSARY
+  CORPORATE
+  GRADUATION
+  CONCERT
+  OTHER
+}
+
+enum AdminRole {
+  OWNER
+  MANAGER
+  HOST
+}
+
+enum ReviewStatus {
+  PENDING
+  PUBLISHED
+  HIDDEN
+}
+
+/// Ведущий. Сейчас один, в будущем — каталог ведущих с профилями.
+model Host {
+  id        String      @id @default(cuid())
+  slug      String      @unique
+  name      String
+  isActive  Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  leads     Lead[]
+  admins    AdminUser[]
+  reviews   Review[]
+}
+
+/// Заявка клиента из конструктора.
+model Lead {
+  id               String        @id @default(cuid())
+  eventType        EventType
+  status           LeadStatus    @default(NEW)
+  clientName       String
+  phone            String
+  whatsapp         String?
+  telegram         String?
+  preferredContact String?
+  eventDate        DateTime?     @db.Date
+  approxPeriod     String?
+  startTime        String?
+  duration         String?
+  guests           Int?
+  language         String?
+  city             String?
+  venueName        String?
+  address          String?
+  /// Сырые ответы анкеты: { fieldId: value }
+  answers          Json
+  /// Читаемый снимок: [{ title, items: [{ label, value }] }]
+  summary          Json
+  source           String?
+  userAgent        String?
+  statusChangedAt  DateTime?
+  hostId           String?
+  host             Host?         @relation(fields: [hostId], references: [id], onDelete: SetNull)
+  comments         LeadComment[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([status])
+  @@index([eventType])
+  @@index([eventDate])
+  @@index([createdAt])
+}
+
+/// Внутренний комментарий администратора к заявке.
+model LeadComment {
+  id        String     @id @default(cuid())
+  leadId    String
+  lead      Lead       @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  text      String
+  authorId  String?
+  author    AdminUser? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt DateTime   @default(now())
+
+  @@index([leadId])
+}
+
+model AdminUser {
+  id           String        @id @default(cuid())
+  login        String        @unique
+  passwordHash String
+  name         String?
+  role         AdminRole     @default(OWNER)
+  hostId       String?
+  host         Host?         @relation(fields: [hostId], references: [id], onDelete: SetNull)
+  lastLoginAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  comments     LeadComment[]
+}
+
+/// Отзывы: клиенты оставляют на сайте → модерация в админ-панели.
+model Review {
+  id         String       @id @default(cuid())
+  authorName String
+  eventLabel String?
+  text       String
+  rating     Int          @default(5)
+  photoUrl   String?
+  status     ReviewStatus @default(PENDING)
+  hostId     String?
+  host       Host?        @relation(fields: [hostId], references: [id], onDelete: SetNull)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([status])
+}
